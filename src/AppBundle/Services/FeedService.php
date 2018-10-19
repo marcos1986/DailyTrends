@@ -68,6 +68,49 @@ class FeedService
 
     }
 
+    /**
+     * @return array
+     */
+    public function getTodayFeeds()
+    {
+        $firstArticles = [];
+        $urls = $this->container->getParameter('urls_newspapers');
+        $counterNewsPapers = 0;
+        foreach ($urls as $key => $url){
+
+            $articles = simplexml_load_string(file_get_contents($url));
+
+            $firstArticles[$counterNewsPapers] = "";
+
+            $newsNumber=1;
+
+            foreach($articles->channel->item as $article) {
+
+                $imageNews = $this->formatUrlImages($article);
+                $descriptionNews = $this->formatUrlDescription($article);
+
+                $feed = new Feed();
+                $feed->setTitle($article->title)
+                    ->setBody($descriptionNews)
+                    ->setImage($imageNews)
+                    ->setSource($article->link)
+                    ->setPublisher($articles->channel->title);
+
+                $newsNumber++;
+                $firstArticles[$counterNewsPapers]['item'][] = $feed;
+
+                if ($newsNumber > self::MAX_NEWS) {
+                    break;
+                }
+
+            }
+            $counterNewsPapers++;
+        }
+
+        return $firstArticles;
+    }
+
+
     public function save(Feed $feed)
     {
         $this->entityManager->persist($feed);
