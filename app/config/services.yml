@@ -33,3 +33,7 @@ services:
     # AppBundle\Service\ExampleService:
     #     arguments:
     #         $someArgument: 'some_value'
+
+    AppBundle\Services\FeedService:
+        public: true
+        arguments: ['@doctrine.orm.entity_manager','@service_container']

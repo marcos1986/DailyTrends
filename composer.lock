@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03bea14fa0c279c81e6b4c0da7490d8e",
+    "content-hash": "8949140baf5c53e9e4905492e29ec8f6",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -989,6 +989,57 @@
                 "sql"
             ],
             "time": "2014-01-12T16:20:24+00:00"
+        },
+        {
+            "name": "martyrer/simple-html-dom-bundle",
+            "version": "1.0.0",
+            "target-dir": "Martyrer/SimpleHtmlDomBundle",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Martyrer/SimpleHtmlDomBundle.git",
+                "reference": "055e1e013953dfca0da577f5858ba7b2ec2ee553"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Martyrer/SimpleHtmlDomBundle/zipball/055e1e013953dfca0da577f5858ba7b2ec2ee553",
+                "reference": "055e1e013953dfca0da577f5858ba7b2ec2ee553",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "symfony/browser-kit": "3.*",
+                "symfony/finder": "3.*",
+                "symfony/form": "3.*",
+                "symfony/framework-bundle": "3.*",
+                "symfony/yaml": "3.*"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-0": {
+                    "Martyrer\\SimpleHtmlDomBundle": ""
+                },
+                "classmap": [
+                    "lib"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Shumilin",
+                    "email": "zveryga.ru@gmail.com"
+                }
+            ],
+            "description": "Bundle around Simple HTML DOM library",
+            "homepage": "https://github.com/Martyrer/SimpleHtmlDomBundle",
+            "keywords": [
+                "dom",
+                "html",
+                "php"
+            ],
+            "time": "2017-01-23T12:26:16+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2450,8 +2501,5 @@
     "platform": {
         "php": ">=5.5.9"
     },
-    "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.6"
-    }
+    "platform-dev": []
 }
