@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Feed
@@ -25,6 +26,7 @@ class Feed
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $title;
 
@@ -32,6 +34,7 @@ class Feed
      * @var string
      *
      * @ORM\Column(name="body", type="text")
+     * @Assert\NotBlank()
      */
     private $body;
 
@@ -39,6 +42,7 @@ class Feed
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $image;
 
@@ -46,6 +50,7 @@ class Feed
      * @var string
      *
      * @ORM\Column(name="source", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $source;
 
@@ -53,6 +58,7 @@ class Feed
      * @var string
      *
      * @ORM\Column(name="publisher", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $publisher;
 

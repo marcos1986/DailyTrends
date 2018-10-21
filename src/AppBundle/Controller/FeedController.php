@@ -20,14 +20,20 @@ class FeedController extends Controller
      * @Route("/", name="feed_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $feeds = $em->getRepository('AppBundle:Feed')->findAll();
 
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $feeds, $request->query->getInt('page', 1),
+            5
+        );
+
         return $this->render('feed/index.html.twig', array(
-            'feeds' => $feeds,
+            'pagination' => $pagination,
         ));
     }
 
@@ -101,7 +107,7 @@ class FeedController extends Controller
     /**
      * Deletes a feed entity.
      *
-     * @Route("/{id}", name="feed_delete")
+     * @Route("/{id}/delete", name="feed_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Feed $feed)
@@ -123,7 +129,7 @@ class FeedController extends Controller
      *
      * @param Feed $feed The feed entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Feed $feed)
     {

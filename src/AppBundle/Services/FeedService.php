@@ -15,7 +15,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class FeedService
 {
 
-    const MAX_NEWS = 1;
+    /** Max news loaded */
+    const MAX_NEWS = 10;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -34,6 +35,7 @@ class FeedService
         $this->container = $container;
     }
 
+    /** Get main feeds from source and keep them into the database */
     public function getMainFeed()
     {
         $urls = $this->container->getParameter('urls_newspapers');
@@ -52,7 +54,7 @@ class FeedService
                     ->setBody($descriptionNews)
                     ->setImage($imageNews)
                     ->setSource($article->link)
-                    ->setPublisher($url);
+                    ->setPublisher($key);
 
                 $this->save($feed);
 
@@ -69,12 +71,15 @@ class FeedService
     }
 
     /**
+     * Get the feeds that were published today.
+     *
      * @return array
      */
     public function getTodayFeeds()
     {
         $firstArticles = [];
         $urls = $this->container->getParameter('urls_newspapers');
+
         $counterNewsPapers = 0;
         foreach ($urls as $key => $url){
 
@@ -94,7 +99,7 @@ class FeedService
                     ->setBody($descriptionNews)
                     ->setImage($imageNews)
                     ->setSource($article->link)
-                    ->setPublisher($articles->channel->title);
+                    ->setPublisher($key);
 
                 $newsNumber++;
                 $firstArticles[$counterNewsPapers]['item'][] = $feed;
@@ -141,9 +146,10 @@ class FeedService
     public function formatUrlDescription($article)
     {
         if($article->enclosure[0]['url'] == null){
-            $content = $article->description;
-            preg_match_all('/href=([\'"])?(.*?)\\1/', $content, $matches);
-            $descriptionNews = $matches[2][0];
+            //$content = $article->description;
+            //preg_match_all('/href=([\'"])?(.*?)\\1/', $content, $matches);
+            //$descriptionNews = $matches[2][0];
+            $descriptionNews = "";
         }else{
             $descriptionNews = $article->description;
         }

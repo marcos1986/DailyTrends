@@ -1,12 +1,30 @@
-{% for newspaper in feed %}
-    <div class="section" style="background-color:blue;padding:20px;margin:20px;border:4px solid green;">
-        {% for notice in newspaper.item %}
-        <article>
-            <img src="{{ notice.image }}" />
-            <p style="font-weight: bold;">{{ notice.title }}</p>
-            <p>{{ notice.body }}</p>
-            <p>{{ notice.publisher }}</p>
-        </article>
-        {% endfor %}
-    </div>
-{% endfor %}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ parent() }}
+    {% for newspaper in feed %}
+        <div class="container" style="margin:0 auto;padding:20px;max-width:80%;">
+            {% for notice in newspaper.item %}
+                {#<div class="well">
+                    <div class="media">
+                        <img class="pull-left" style="height:100%;" src="{{ notice.image }}" />
+                        <div class="media-body">
+                            <h2 class="media-heading" style="font-weight: bold;padding:15px;">{{ notice.title }}</h2>
+                            <h3 style="padding:15px;">{{ notice.body }}</h3>
+                        </div>
+                    </div>
+                </div>#}
+                <div class="row well">
+                    <div class="media">
+                        <img class="pull-left" style="height:100%;" src="{{ notice.image }}" />
+                        <div class="media-body">
+                            <h3 class="media-heading" style="font-weight: bold;padding:15px;"><a href="{{ notice.source }}" target="_blank">{{ notice.title }}</a></h3>
+                            <h4 style="padding:15px;">{{ notice.body }}</h4>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+{% endblock %}

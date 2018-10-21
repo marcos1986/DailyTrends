@@ -1,6 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {{ parent() }}
+    <div class="container well">
+        <div class="col-md-9">
+            <h2><a target="_blank" href="{{ feed.source }}">{{ feed.title }}</a></h2>
+            <br>
+
+            <dl>
+                <dd>
+                    {{ feed.body }}
+                    &nbsp;
+                </dd>
+                <br>
+                <img class="col-md-12" style="width:100%;" src="{{ feed.image }}" />
+                <dt>{{ 'Publicado por: ' }}</dt>
+                <dd>
+                    {{ feed.publisher }}
+                    &nbsp;
+                </dd>
+                <br>
+            </dl>
+        </div>
+        <div class="col-md-3">
+            <a href="{{ path('feed_edit', { id: feed.id }) }}" class="btn btn-primary btn-lg btn-block">
+                <span class="glyphicon glyphicon-edit"></span>
+                {{ 'Edit Feed' }}
+            </a>
+            <a href="{{ path('feed_delete', { id: feed.id }) }}" class="btn btn-danger btn-lg btn-block">
+                <span class="glyphicon glyphicon-remove"></span>
+                {{ 'Delete Feed' }}
+            </a>
+        </div>
+    </div>
+{% endblock %}
+{#
+{% extends 'base.html.twig' %}
+
+{% block body %}
     <h1>Feed</h1>
 
     <table>
@@ -46,3 +83,4 @@
         </li>
     </ul>
 {% endblock %}
+#}

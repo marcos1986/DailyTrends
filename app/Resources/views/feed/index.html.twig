@@ -1,47 +1,41 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Feeds list</h1>
+    {{ parent() }}
+<div class="container">
+    <div class="col-md-12">
+        <div class="page-header margin-none">
+            <h2>Feeds list</h2>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>{{ knp_pagination_sortable(pagination, 'Number' , 'id') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Title' , 'title') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'Publisher' , 'publisher') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for feed in pagination %}
+                    <tr data-id="{{ feed.id }}">
+                        <td><a href="{{ path('feed_show', { 'id': feed.id }) }}">{{ feed.id }}</a></td>
+                        <td>{{ feed.title }}</td>
+                        <td>{{ feed.publisher }}</td>
+                        <td class="actions">
+                            <a href="{{ path('feed_show', { id: feed.id }) }}" class="btn btn-sm btn-info">View</a>
+                            <a href="{{ path('feed_edit', { id: feed.id }) }}" class="btn btn-sm btn-primary">Edit</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {# display navigation #}
+            <div class="navigation">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </div>
+    </div>
+</div>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Body</th>
-                <th>Image</th>
-                <th>Source</th>
-                <th>Publisher</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for feed in feeds %}
-            <tr>
-                <td><a href="{{ path('feed_show', { 'id': feed.id }) }}">{{ feed.id }}</a></td>
-                <td>{{ feed.title }}</td>
-                <td>{{ feed.body }}</td>
-                <td>{{ feed.image }}</td>
-                <td>{{ feed.source }}</td>
-                <td>{{ feed.publisher }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('feed_show', { 'id': feed.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('feed_edit', { 'id': feed.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('feed_new') }}">Create a new feed</a>
-        </li>
-    </ul>
 {% endblock %}

@@ -1,7 +1,52 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Feed creation</h1>
+    {{ parent() }}
+
+    <div class="main container">
+        <div class="row well">
+            <div class="col-md-6">
+                <div class="page-header">
+                    <h2>New Feed</h2>
+                </div>
+                {{ form_start(form, {'attr':{'novalidate':'novalidate','role':'form'}}) }}
+                <h4 class="text-danger">{{ form_errors(form) }}</h4>
+
+                <fieldset>
+                    <div class="form-group">
+                        {{ form_label(form.title) }}
+                        {{ form_widget(form.title, {'attr': {'class':'form-control','placeholder':'Title' }}) }}
+                        <span class="text-danger">{{ form_errors(form.title) }}</span>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.body) }}
+                        {{ form_widget(form.body, {'attr': {'class':'form-control', 'placeholder':'Description'}}) }}
+                        <span class="text-danger">{{ form_errors(form.body) }}</span>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.image) }}
+                        {{ form_widget(form.image, {'attr': {'class':'form-control', 'placeholder':'Image'}}) }}
+                        <span class="text-danger">{{ form_errors(form.image) }}</span>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.source) }}
+                        {{ form_widget(form.source, {'attr': {'class':'form-control', 'placeholder':'Source'}}) }}
+                        <span class="text-danger">{{ form_errors(form.source) }}</span>
+                    </div>
+                    <div class="form-group">
+                        {{ form_label(form.publisher) }}
+                        {{ form_widget(form.publisher, {'attr': {'class':'form-control', 'placeholder':'Publisher'}}) }}
+                        <span class="text-danger">{{ form_errors(form.publisher) }}</span>
+                    </div>
+                </fieldset>
+                <p>
+                    {{ form_widget(form.save, {'label':'Create Feed','attr':{'class':'btn btn-success'}}) }}
+                </p>
+                    {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{#
 
     {{ form_start(form) }}
         {{ form_widget(form) }}
@@ -12,5 +57,5 @@
         <li>
             <a href="{{ path('feed_index') }}">Back to the list</a>
         </li>
-    </ul>
+    </ul>#}
 {% endblock %}
