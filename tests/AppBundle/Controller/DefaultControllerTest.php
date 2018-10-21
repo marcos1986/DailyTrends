@@ -12,7 +12,20 @@ class DefaultControllerTest extends WebTestCase
 
         $crawler = $client->request('GET', '/');
 
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        //$this->assertContains('Welcome to Symfony', $crawler->filter('#container h1')->text());
+        //capture link news
+        $link = $crawler->filter('a:contains("News")')->link();
+
+        var_dump($link);
+        $newCrawler = $client->click($link);
+
+        //Test preparado
+        $this->assertGreaterThan(
+            31,
+            $newCrawler->filter('img')->count()
+        );
+
+        //$this->assertEquals(200, $client->getResponse()->getStatusCode());
+        //$this->assertContains('Welcome to Symfony',
+            //$crawler->filter('#container h1')->text());
     }
 }
