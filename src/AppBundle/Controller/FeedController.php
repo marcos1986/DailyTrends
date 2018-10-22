@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Feed;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -103,7 +104,11 @@ class FeedController extends Controller
     /**
      * Deletes a feed entity.
      *
-     * @Route("/{id}/delete", name="feed_delete", methods={"DELETE"})
+     * @Route("/delete/{id}", name="feed_delete")
+     * @Method("DELETE")
+     * @param Request $request
+     * @param Feed $feed
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function deleteAction(Request $request, Feed $feed)
     {

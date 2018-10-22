@@ -6,6 +6,10 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+
+    /**
+     * Testing news.
+     */
     public function testIndex()
     {
         $client = static::createClient();
@@ -17,7 +21,7 @@ class DefaultControllerTest extends WebTestCase
 
         $newCrawler = $client->click($link);
 
-        //Test preparado
+        //Testing news
         $this->assertGreaterThan(
             9,
             $newCrawler->filter('img')->count()
@@ -25,6 +29,9 @@ class DefaultControllerTest extends WebTestCase
 
     }
 
+    /**
+     * Testing create form.
+     */
     public function testSubmitNewFeed()
     {
         $client = static::createClient();

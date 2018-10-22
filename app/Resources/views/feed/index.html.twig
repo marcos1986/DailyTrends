@@ -2,7 +2,7 @@
 
 {% block body %}
     {{ parent() }}
-<div class="container">
+<div class="container main-container row well">
     <div class="col-md-12">
         <div class="page-header margin-none">
             <h2>Feeds list</h2>
@@ -23,9 +23,7 @@
                         <td>{{ feed.title }}</td>
                         <td>{{ feed.publisher }}</td>
                         <td class="actions">
-                            <a href="{{ path('feed_show', { id: feed.id }) }}" class="btn btn-sm btn-info">View</a>
-                            <a href="{{ path('feed_edit', { id: feed.id }) }}" class="btn btn-sm btn-primary">Edit</a>
-                        </td>
+                            <a href="{{ path('feed_show', { id: feed.id }) }}" class="btn btn-sm btn-info">View</a></td>
                     </tr>
                 {% endfor %}
                 </tbody>

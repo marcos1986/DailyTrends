@@ -3,7 +3,7 @@
 {% block body %}
     {{ parent() }}
 
-    <div class="main container">
+    <div class="main container main-container">
         <div class="row well">
             <div class="col-md-6">
                 <div class="page-header">
@@ -46,16 +46,5 @@
             </div>
         </div>
     </div>
-{#
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
-
-    <ul>
-        <li>
-            <a href="{{ path('feed_index') }}">Back to the list</a>
-        </li>
-    </ul>#}
 {% endblock %}
