@@ -2,29 +2,21 @@
 
 {% block body %}
     {{ parent() }}
-    {% for newspaper in feed %}
-        <div class="container" style="margin:0 auto;padding:20px;max-width:80%;">
-            {% for notice in newspaper.item %}
-                {#<div class="well">
-                    <div class="media">
-                        <img class="pull-left" style="height:100%;" src="{{ notice.image }}" />
-                        <div class="media-body">
-                            <h2 class="media-heading" style="font-weight: bold;padding:15px;">{{ notice.title }}</h2>
-                            <h3 style="padding:15px;">{{ notice.body }}</h3>
-                        </div>
-                    </div>
-                </div>#}
+        <div class="container main-container">
+            {% for notice in feed %}
                 <div class="row well">
                     <div class="media">
                         <img class="pull-left" style="height:100%;" src="{{ notice.image }}" />
                         <div class="media-body">
                             <h3 class="media-heading" style="font-weight: bold;padding:15px;"><a href="{{ notice.source }}" target="_blank">{{ notice.title }}</a></h3>
-                            <h4 style="padding:15px;">{{ notice.body }}</h4>
+                            {% if notice.body is not empty %}
+                                <h4 style="padding:15px;">{{ notice.body }}</h4>
+                            {% endif %}
                         </div>
                     </div>
+                    <span class="source">{{ notice.publisher }}</span>
                 </div>
             {% endfor %}
         </div>
-    {% endfor %}
 
 {% endblock %}

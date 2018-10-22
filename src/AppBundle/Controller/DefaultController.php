@@ -13,8 +13,9 @@ class DefaultController extends Controller
      * First function called when init the application
      *
      * @Route("/", name="homepage")
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $this->get(FeedService::class)->getMainFeed();
         $feed = $this->get(FeedService::class)->getTodayFeeds();

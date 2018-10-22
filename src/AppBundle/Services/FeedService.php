@@ -9,6 +9,8 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Feed;
+use AppBundle\Factory\FeedFactory;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -16,7 +18,7 @@ class FeedService
 {
 
     /** Max news loaded */
-    const MAX_NEWS = 10;
+    const  MAX_NEWS = 5;
 
     /** @var EntityManagerInterface */
     private $entityManager;
@@ -39,22 +41,15 @@ class FeedService
     public function getMainFeed()
     {
         $urls = $this->container->getParameter('urls_newspapers');
-        foreach ($urls as $key => $url){
+
+        foreach ($urls as $url){
             $articles = simplexml_load_string(file_get_contents($url));
 
             $newsNumber=1;
 
             foreach($articles->channel->item as $article) {
 
-                $imageNews = $this->formatUrlImages($article);
-                $descriptionNews = $this->formatUrlDescription($article);
-
-                $feed = new Feed();
-                $feed->setTitle($article->title)
-                    ->setBody($descriptionNews)
-                    ->setImage($imageNews)
-                    ->setSource($article->link)
-                    ->setPublisher($key);
+                $feed = FeedFactory::buildFeedFromSource($article);
 
                 $this->save($feed);
 
@@ -71,48 +66,15 @@ class FeedService
     }
 
     /**
-     * Get the feeds that were published today.
+     * Get the 5 first feeds for each newspaper that were published today.
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getTodayFeeds()
     {
-        $firstArticles = [];
         $urls = $this->container->getParameter('urls_newspapers');
 
-        $counterNewsPapers = 0;
-        foreach ($urls as $key => $url){
-
-            $articles = simplexml_load_string(file_get_contents($url));
-
-            $firstArticles[$counterNewsPapers] = "";
-
-            $newsNumber=1;
-
-            foreach($articles->channel->item as $article) {
-
-                $imageNews = $this->formatUrlImages($article);
-                $descriptionNews = $this->formatUrlDescription($article);
-
-                $feed = new Feed();
-                $feed->setTitle($article->title)
-                    ->setBody($descriptionNews)
-                    ->setImage($imageNews)
-                    ->setSource($article->link)
-                    ->setPublisher($key);
-
-                $newsNumber++;
-                $firstArticles[$counterNewsPapers]['item'][] = $feed;
-
-                if ($newsNumber > self::MAX_NEWS) {
-                    break;
-                }
-
-            }
-            $counterNewsPapers++;
-        }
-
-        return $firstArticles;
+        return $firstArticles = FeedFactory::buildFeedFromSources($urls);
     }
 
 
@@ -120,41 +82,6 @@ class FeedService
     {
         $this->entityManager->persist($feed);
         $this->entityManager->flush();
-    }
-
-    /**
-     * @param $article
-     * @return mixed
-     */
-    public function formatUrlImages($article)
-    {
-        if($article->enclosure[0]['url'] == null){
-            $content = $article->description;
-            preg_match_all('/src=([\'"])?(.*?)\\1/', $content, $matches);
-            $imageNews = $matches[2][0];
-        }else{
-            $imageNews = $article->enclosure[0]['url'];
-        }
-
-        return $imageNews;
-    }
-
-    /**
-     * @param $article
-     * @return mixed
-     */
-    public function formatUrlDescription($article)
-    {
-        if($article->enclosure[0]['url'] == null){
-            //$content = $article->description;
-            //preg_match_all('/href=([\'"])?(.*?)\\1/', $content, $matches);
-            //$descriptionNews = $matches[2][0];
-            $descriptionNews = "";
-        }else{
-            $descriptionNews = $article->description;
-        }
-
-        return $descriptionNews;
     }
 
 }
