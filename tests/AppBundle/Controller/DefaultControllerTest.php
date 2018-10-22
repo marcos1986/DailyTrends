@@ -15,17 +15,27 @@ class DefaultControllerTest extends WebTestCase
         //capture link news
         $link = $crawler->filter('a:contains("News")')->link();
 
-        var_dump($link);
         $newCrawler = $client->click($link);
 
         //Test preparado
         $this->assertGreaterThan(
-            31,
+            9,
             $newCrawler->filter('img')->count()
         );
 
-        //$this->assertEquals(200, $client->getResponse()->getStatusCode());
-        //$this->assertContains('Welcome to Symfony',
-            //$crawler->filter('#container h1')->text());
     }
+
+    public function testSubmitNewFeed()
+    {
+        $client = static::createClient();
+
+        $crawler = $client->request('POST','/feed/new');
+
+        $form = $crawler->selectButton('Create Feed')->form();
+
+        $client->submit($form);
+
+        $this->assertEquals('AppBundle\Controller\FeedController::newAction', $client->getRequest()->attributes->get('_controller'));
+    }
+
 }

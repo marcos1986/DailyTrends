@@ -4,8 +4,8 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Feed;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Feed controller.
@@ -17,8 +17,7 @@ class FeedController extends Controller
     /**
      * Lists all feed entities.
      *
-     * @Route("/", name="feed_index")
-     * @Method("GET")
+     * @Route("/", name="feed_index", methods={"GET"})
      */
     public function indexAction(Request $request)
     {
@@ -40,8 +39,7 @@ class FeedController extends Controller
     /**
      * Creates a new feed entity.
      *
-     * @Route("/new", name="feed_new")
-     * @Method({"GET", "POST"})
+     * @Route("/new", name="feed_new", methods={"POST","GET"})
      */
     public function newAction(Request $request)
     {
@@ -66,8 +64,7 @@ class FeedController extends Controller
     /**
      * Finds and displays a feed entity.
      *
-     * @Route("/{id}", name="feed_show")
-     * @Method("GET")
+     * @Route("/{id}", name="feed_show", methods={"GET"})
      */
     public function showAction(Feed $feed)
     {
@@ -82,8 +79,7 @@ class FeedController extends Controller
     /**
      * Displays a form to edit an existing feed entity.
      *
-     * @Route("/{id}/edit", name="feed_edit")
-     * @Method({"GET", "POST"})
+     * @Route("/{id}/edit", name="feed_edit", methods={"GET","POST"})
      */
     public function editAction(Request $request, Feed $feed)
     {
@@ -107,8 +103,7 @@ class FeedController extends Controller
     /**
      * Deletes a feed entity.
      *
-     * @Route("/{id}/delete", name="feed_delete")
-     * @Method("DELETE")
+     * @Route("/{id}/delete", name="feed_delete", methods={"DELETE"})
      */
     public function deleteAction(Request $request, Feed $feed)
     {
