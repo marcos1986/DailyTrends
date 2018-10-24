@@ -14,6 +14,12 @@ Installation
 * Symfony follows the [semantic versioning][5] strictly, publishes "Long Term
   Support" (LTS) versions and has a [release process][6] that is predictable and
   business-friendly.
+  
+* Clone or Download Project
+* composer update
+* in parameters.yml set your database values.
+* run php bin/console doctrine:database:create
+* run php bin/console doctrine:schema:update --force
 
 Documentation
 -------------
