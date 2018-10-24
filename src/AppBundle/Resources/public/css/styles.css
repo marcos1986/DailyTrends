@@ -35,3 +35,20 @@ div.main-container{
 .publishedby{
     margin-top:10px;
 }
+
+.body_feed{
+    padding:15px
+}
+
+.image{
+    height:100%;
+}
+
+.source{
+    font-weight: bold;
+}
+
+.body_title{
+    font-weight: bold;
+    padding:15px
+}

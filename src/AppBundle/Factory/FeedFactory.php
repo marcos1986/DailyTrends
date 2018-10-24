@@ -16,6 +16,7 @@ class FeedFactory
 {
 
     /**
+     * Iterate the array to can create new feeds from source
      * @param $urls
      * @return ArrayCollection
      */
@@ -88,6 +89,7 @@ class FeedFactory
     }
 
     /**
+     * Extract the url embebed in the description
      * @param $article
      * @return mixed
      */
@@ -106,6 +108,7 @@ class FeedFactory
     }
 
     /**
+     * Extract the publisher from the url
      * @param $article
      * @return mixed
      */

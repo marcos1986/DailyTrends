@@ -37,7 +37,9 @@ class FeedService
         $this->container = $container;
     }
 
-    /** Get main feeds from source and keep them into the database */
+    /** Get main feeds from source and keep them into the database
+     *
+     */
     public function getMainFeed()
     {
         $urls = $this->container->getParameter('urls_newspapers');
@@ -78,6 +80,9 @@ class FeedService
     }
 
 
+    /**
+     * @param Feed $feed
+     */
     public function save(Feed $feed)
     {
         $this->entityManager->persist($feed);
